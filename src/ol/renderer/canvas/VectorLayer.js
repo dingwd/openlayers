@@ -12,7 +12,6 @@ import {buffer, createEmpty, containsExtent, getWidth} from '../../extent.js';
 import RenderEventType from '../../render/EventType.js';
 import {labelCache, rotateAtOffset} from '../../render/canvas.js';
 import CanvasReplayGroup from '../../render/canvas/ReplayGroup.js';
-import RendererType from '../Type.js';
 import CanvasLayerRenderer from '../canvas/Layer.js';
 import {defaultOrder as defaultRenderOrder, getTolerance as getRenderTolerance, getSquaredTolerance as getSquaredRenderTolerance, renderFeature} from '../vector.js';
 
@@ -88,12 +87,11 @@ inherits(CanvasVectorLayerRenderer, CanvasLayerRenderer);
 
 /**
  * Determine if this renderer handles the provided layer.
- * @param {ol.renderer.Type} type The renderer type.
  * @param {module:ol/layer/Layer~Layer} layer The candidate layer.
  * @return {boolean} The renderer can render the layer.
  */
-CanvasVectorLayerRenderer['handles'] = function(type, layer) {
-  return type === RendererType.CANVAS && layer.getType() === LayerType.VECTOR;
+CanvasVectorLayerRenderer['handles'] = function(layer) {
+  return layer.getType() === LayerType.VECTOR;
 };
 
 
@@ -407,7 +405,7 @@ CanvasVectorLayerRenderer.prototype.prepareFrame = function(frameState, layerSta
  * @param {module:ol/Feature~Feature} feature Feature.
  * @param {number} resolution Resolution.
  * @param {number} pixelRatio Pixel ratio.
- * @param {(ol.style.Style|Array.<ol.style.Style>)} styles The style or array of
+ * @param {(module:ol/style/Style~Style|Array.<module:ol/style/Style~Style>)} styles The style or array of
  *     styles.
  * @param {ol.render.canvas.ReplayGroup} replayGroup Replay group.
  * @return {boolean} `true` if an image is loading.

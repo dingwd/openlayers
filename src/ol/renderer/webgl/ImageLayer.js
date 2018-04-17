@@ -3,13 +3,11 @@
  */
 import {ENABLE_RASTER_REPROJECTION} from '../../reproj/common.js';
 import {inherits} from '../../index.js';
-import {UNDEFINED} from '../../functions.js';
+import {TRUE, UNDEFINED} from '../../functions.js';
 import LayerType from '../../LayerType.js';
 import ViewHint from '../../ViewHint.js';
 import {createCanvasContext2D} from '../../dom.js';
 import {getIntersection, isEmpty} from '../../extent.js';
-import {TRUE} from '../../functions.js';
-import RendererType from '../Type.js';
 import WebGLLayerRenderer from '../webgl/Layer.js';
 import {
   create as createTransform,
@@ -61,12 +59,11 @@ inherits(WebGLImageLayerRenderer, WebGLLayerRenderer);
 
 /**
  * Determine if this renderer handles the provided layer.
- * @param {ol.renderer.Type} type The renderer type.
  * @param {module:ol/layer/Layer~Layer} layer The candidate layer.
  * @return {boolean} The renderer can render the layer.
  */
-WebGLImageLayerRenderer['handles'] = function(type, layer) {
-  return type === RendererType.WEBGL && layer.getType() === LayerType.IMAGE;
+WebGLImageLayerRenderer['handles'] = function(layer) {
+  return layer.getType() === LayerType.IMAGE;
 };
 
 

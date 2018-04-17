@@ -210,64 +210,11 @@ ol.ReprojTriangle;
 
 
 /**
- * @typedef {{attributions: (ol.AttributionLike|undefined),
- *            extent: (null|module:ol/extent~Extent|undefined),
- *            projection: module:ol/proj~ProjectionLike,
- *            resolutions: (Array.<number>|undefined),
- *            state: (ol.source.State|undefined)}}
- */
-ol.SourceImageOptions;
-
-
-/**
  * @typedef {{revision: number,
  *            resolution: number,
  *            extent: module:ol/extent~Extent}}
  */
 ol.SourceRasterRenderedState;
-
-
-/**
- * @typedef {{attributions: (ol.AttributionLike|undefined),
- *            projection: module:ol/proj~ProjectionLike,
- *            state: (ol.source.State|undefined),
- *            wrapX: (boolean|undefined)}}
- */
-ol.SourceSourceOptions;
-
-
-/**
- * @typedef {{attributions: (ol.AttributionLike|undefined),
- *            cacheSize: (number|undefined),
- *            extent: (module:ol/extent~Extent|undefined),
- *            opaque: (boolean|undefined),
- *            tilePixelRatio: (number|undefined),
- *            projection: module:ol/proj~ProjectionLike,
- *            state: (ol.source.State|undefined),
- *            tileGrid: (ol.tilegrid.TileGrid|undefined),
- *            wrapX: (boolean|undefined),
- *            transition: (number|undefined)}}
- */
-ol.SourceTileOptions;
-
-
-/**
- * @typedef {{attributions: (ol.AttributionLike|undefined),
- *            cacheSize: (number|undefined),
- *            extent: (module:ol/extent~Extent|undefined),
- *            opaque: (boolean|undefined),
- *            projection: module:ol/proj~ProjectionLike,
- *            state: (ol.source.State|undefined),
- *            tileGrid: (ol.tilegrid.TileGrid|undefined),
- *            tileLoadFunction: module:ol/Tile~LoadFunction,
- *            tilePixelRatio: (number|undefined),
- *            tileUrlFunction: (module:ol/Tile~UrlFunction|undefined),
- *            url: (string|undefined),
- *            urls: (Array.<string>|undefined),
- *            wrapX: (boolean|undefined),
- *            transition: (number|undefined)}}
- */
-ol.SourceUrlTileOptions;
 
 
 /**

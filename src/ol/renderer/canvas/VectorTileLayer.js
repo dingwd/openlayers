@@ -16,7 +16,6 @@ import ReplayType from '../../render/ReplayType.js';
 import {labelCache, rotateAtOffset} from '../../render/canvas.js';
 import CanvasReplayGroup, {replayDeclutter} from '../../render/canvas/ReplayGroup.js';
 import {ORDER} from '../../render/replay.js';
-import RendererType from '../Type.js';
 import CanvasTileLayerRenderer from '../canvas/TileLayer.js';
 import {getSquaredTolerance as getSquaredRenderTolerance, renderFeature} from '../vector.js';
 import {
@@ -99,12 +98,11 @@ inherits(CanvasVectorTileLayerRenderer, CanvasTileLayerRenderer);
 
 /**
  * Determine if this renderer handles the provided layer.
- * @param {ol.renderer.Type} type The renderer type.
  * @param {module:ol/layer/Layer~Layer} layer The candidate layer.
  * @return {boolean} The renderer can render the layer.
  */
-CanvasVectorTileLayerRenderer['handles'] = function(type, layer) {
-  return type === RendererType.CANVAS && layer.getType() === LayerType.VECTOR_TILE;
+CanvasVectorTileLayerRenderer['handles'] = function(layer) {
+  return layer.getType() === LayerType.VECTOR_TILE;
 };
 
 
@@ -176,7 +174,7 @@ CanvasVectorTileLayerRenderer.prototype.createReplayGroup_ = function(tile, fram
   const zIndexKeys = {};
   for (let t = 0, tt = tile.tileKeys.length; t < tt; ++t) {
     const sourceTile = tile.getTile(tile.tileKeys[t]);
-    if (sourceTile.getState() == TileState.ERROR) {
+    if (sourceTile.getState() != TileState.LOADED) {
       continue;
     }
 
@@ -286,7 +284,7 @@ CanvasVectorTileLayerRenderer.prototype.forEachFeatureAtCoordinate = function(co
     }
     for (let t = 0, tt = tile.tileKeys.length; t < tt; ++t) {
       const sourceTile = tile.getTile(tile.tileKeys[t]);
-      if (sourceTile.getState() == TileState.ERROR) {
+      if (sourceTile.getState() != TileState.LOADED) {
         continue;
       }
       replayGroup = sourceTile.getReplayGroup(layer, tile.tileCoord.toString());
@@ -395,7 +393,7 @@ CanvasVectorTileLayerRenderer.prototype.postCompose = function(context, frameSta
     let transform = undefined;
     for (let t = 0, tt = tile.tileKeys.length; t < tt; ++t) {
       const sourceTile = tile.getTile(tile.tileKeys[t]);
-      if (sourceTile.getState() == TileState.ERROR) {
+      if (sourceTile.getState() != TileState.LOADED) {
         continue;
       }
       const replayGroup = sourceTile.getReplayGroup(layer, tileCoord.toString());
@@ -448,7 +446,7 @@ CanvasVectorTileLayerRenderer.prototype.postCompose = function(context, frameSta
 /**
  * @param {module:ol/Feature~Feature|ol.render.Feature} feature Feature.
  * @param {number} squaredTolerance Squared tolerance.
- * @param {(ol.style.Style|Array.<ol.style.Style>)} styles The style or array of
+ * @param {(module:ol/style/Style~Style|Array.<module:ol/style/Style~Style>)} styles The style or array of
  *     styles.
  * @param {ol.render.canvas.ReplayGroup} replayGroup Replay group.
  * @return {boolean} `true` if an image is loading.
@@ -500,7 +498,7 @@ CanvasVectorTileLayerRenderer.prototype.renderTileImage_ = function(
     const tileExtent = tileGrid.getTileCoordExtent(tileCoord, this.tmpExtent);
     for (let i = 0, ii = tile.tileKeys.length; i < ii; ++i) {
       const sourceTile = tile.getTile(tile.tileKeys[i]);
-      if (sourceTile.getState() == TileState.ERROR) {
+      if (sourceTile.getState() != TileState.LOADED) {
         continue;
       }
       const pixelScale = pixelRatio / resolution;
